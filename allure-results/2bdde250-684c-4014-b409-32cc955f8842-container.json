@@ -1,0 +1,1 @@
+{"uuid":"2bdde250-684c-4014-b409-32cc955f8842","name":"runner.OrderPlacedTests.setUp","children":["551a3dfc-ceb2-4beb-898f-ac11af883a89"],"description":"","befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1760214240179,"stop":1760214277603}],"afters":[],"start":1760214240179,"stop":1760214277603}
