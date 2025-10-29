@@ -5,12 +5,18 @@ import data.ExcelReader;
 import modelos.*;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import pages.*;
 
 import java.util.List;
+
+import static utilities.BasePage.driver;
+
 //import pages.*;
 
 public class CommonFlows {
+    WebDriver driver = new WebdriverProvider().get();
+    SoftAssert softAssert = new SoftAssert();
 
     private WebDriver getDriver(){
         return new WebdriverProvider().get();
@@ -20,14 +26,14 @@ public class CommonFlows {
         Logs.info("Navigating to the url");
         getDriver().get("https://automationexercise.com/");
 
-        new HomePage().waitPageToLoad(); //wait for the page to load
+        new HomePage(driver,softAssert).waitPageToLoad(); //wait for the page to load
     }
 
     public void goToSignUpLoginPage(){
         goToHomePage();
 
-        new HomePage().clickSignUpLogin();
-        new SignUpLoginPage().waitPageToLoad();
+        new HomePage(driver,softAssert).clickSignUpLogin();
+        new SignUpLoginPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToAccountingInformation(){
@@ -37,8 +43,8 @@ public class CommonFlows {
 
         goToSignUpLoginPage();
 
-        new SignUpLoginPage().fillNewUserSignUp(name, email);
-        new AccountInformation().waitPageToLoad();
+        new SignUpLoginPage(driver,softAssert).fillNewUserSignUp(name, email);
+        new AccountInformation(driver,softAssert).waitPageToLoad();
     }
 
     public void goToAccountingInformation2(){
@@ -46,15 +52,15 @@ public class CommonFlows {
         String name = signUpLoginModels.getFirst().getNombre();
         String email = signUpLoginModels.getFirst().getEmail();
 
-        new SignUpLoginPage().fillNewUserSignUp(name, email);
-        new AccountInformation().waitPageToLoad();
+        new SignUpLoginPage(driver,softAssert).fillNewUserSignUp(name, email);
+        new AccountInformation(driver,softAssert).waitPageToLoad();
     }
 
     public void goToAccountCreated(){
         List<AccountInfoModel> accountInfoModels =  ExcelReader.readListAccountInfoExcel();
 
         goToAccountingInformation();
-        new AccountInformation().fillAccountInformation(
+        new AccountInformation(driver,softAssert).fillAccountInformation(
                 accountInfoModels.getFirst().getPassword(),
                 accountInfoModels.getFirst().getName(),
                 accountInfoModels.getFirst().getLastname(),
@@ -64,12 +70,12 @@ public class CommonFlows {
                 accountInfoModels.getFirst().getCity(),
                 accountInfoModels.getFirst().getZipcode(),
                 accountInfoModels.getFirst().getMobilenumber());
-        new AccountCreated().waitPageToLoad();
+        new AccountCreated(driver,softAssert).waitPageToLoad();
     }
     public void goToAccountCreated2(){
         List<AccountInfoModel> accountInfoModels =  ExcelReader.readListAccountInfoExcel();
 
-        new AccountInformation().fillAccountInformation(
+        new AccountInformation(driver,softAssert).fillAccountInformation(
                 accountInfoModels.getFirst().getPassword(),
                 accountInfoModels.getFirst().getName(),
                 accountInfoModels.getFirst().getLastname(),
@@ -79,98 +85,98 @@ public class CommonFlows {
                 accountInfoModels.getFirst().getCity(),
                 accountInfoModels.getFirst().getZipcode(),
                 accountInfoModels.getFirst().getMobilenumber());
-        new AccountCreated().waitPageToLoad();
+        new AccountCreated(driver,softAssert).waitPageToLoad();
     }
 
     public void goToDeleteAccount(){
         goToAccountCreated();
 
-        new AccountCreated().clickingOnContinueButton();
-        new HomePage().waitPageToLoad();
-        new HomePage().clickDeleteAccount();
-        new AccountDelete().waitPageToLoad();
+        new AccountCreated(driver,softAssert).clickingOnContinueButton();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).clickDeleteAccount();
+        new AccountDelete(driver,softAssert).waitPageToLoad();
     }
 
     public void goToLoginToYourAccount(){
         List<AccountInfoModel> accountInfoModels =  ExcelReader.readListAccountInfoExcel();
         List<SignUpLoginModel> signUpLoginModels =  ExcelReader.readListSignUpLoginExcel();
 
-        new SignUpLoginPage().fillLoginToYourAccount(
+        new SignUpLoginPage(driver,softAssert).fillLoginToYourAccount(
                 signUpLoginModels.get(1).getEmail(), accountInfoModels.getFirst().getPassword());
-        new HomePage().waitPageToLoad();
-        new HomePage().verifyDeleteAccountAndLogOut();
-        new HomePage().clickDeleteAccount();
-        new AccountDelete().waitPageToLoad();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).verifyDeleteAccountAndLogOut();
+        new HomePage(driver,softAssert).clickDeleteAccount();
+        new AccountDelete(driver,softAssert).waitPageToLoad();
     }
 
     public void goToLogOutUser(){
         List<AccountInfoModel> accountInfoModels =  ExcelReader.readListAccountInfoExcel();
         List<SignUpLoginModel> signUpLoginModels =  ExcelReader.readListSignUpLoginExcel();
 
-        new SignUpLoginPage().fillLoginToYourAccount(
+        new SignUpLoginPage(driver,softAssert).fillLoginToYourAccount(
                 signUpLoginModels.getFirst().getEmail(), accountInfoModels.getFirst().getPassword());
-        new HomePage().waitPageToLoad();
-        new HomePage().clickingLoginOut();
-        new SignUpLoginPage().waitPageToLoad();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).clickingLoginOut();
+        new SignUpLoginPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToContactUsPage(){
         goToHomePage();
 
-        new HomePage().clickingContactUs();
-        new ContactUs().waitPageToLoad();
+        new HomePage(driver,softAssert).clickingContactUs();
+        new ContactUs(driver,softAssert).waitPageToLoad();
     }
 
     public void goToTestCasesPage(){
         goToHomePage();
 
-        new HomePage().clickingTestCases();
-        new TestCasesPage().waitPageToLoad();
+        new HomePage(driver,softAssert).clickingTestCases();
+        new TestCasesPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToProductsPage(){
         goToHomePage();
 
-        new HomePage().clickingProducts();
-        new ProductsPage().waitPageToLoad();
+        new HomePage(driver,softAssert).clickingProducts();
+        new ProductsPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToDetailProduct(){
         goToProductsPage();
 
-        new ProductsPage().clickingFirstViewProduct();
-        new DetailProductsPage().waitPageToLoad();
+        new ProductsPage(driver,softAssert).clickingFirstViewProduct();
+        new DetailProductsPage(driver, softAssert).waitPageToLoad();
     }
 
     public void goToSearchedProduct(){
         List<SearchedProductModel> searchedProductModels =  ExcelReader.readListSearchedProductExcel();
         goToProductsPage();
 
-        new ProductsPage().searchingProducts(searchedProductModels.getFirst().getProducts());
-        new SearchedProductPage().waitPageToLoad();
+        new ProductsPage(driver,softAssert).searchingProducts(searchedProductModels.getFirst().getProducts());
+        new SearchedProductPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToShoppingCartPage(){
         goToHomePage();
 
-        new HomePage().clickingCartLink();
-        new ShoppingCartPage().waitPageToLoad();
+        new HomePage(driver,softAssert).clickingCartLink();
+        new ShoppingCartPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToDetailAddress(){
         goToProductsPage();
 
-        new ProductsPage().registerWhileCheckout();
-        new SignUpLoginPage().waitPageToLoad();
+        new ProductsPage(driver,softAssert).registerWhileCheckout();
+        new SignUpLoginPage(driver,softAssert).waitPageToLoad();
         goToAccountingInformation2();
-        new AccountInformation().waitPageToLoad();
+        new AccountInformation(driver,softAssert).waitPageToLoad();
         goToAccountCreated2();
-        new AccountCreated().clickingOnContinueButton();
-        new HomePage().waitPageToLoad();
-        new HomePage().verifyingLoggedInAs();
-        new HomePage().clickingCartLink();
-        new ShoppingCartPage().clickingProceedToCheckout();
-        new AddressDetailPage().waitPageToLoad();
+        new AccountCreated(driver,softAssert).clickingOnContinueButton();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).verifyingLoggedInAs();
+        new HomePage(driver,softAssert).clickingCartLink();
+        new ShoppingCartPage(driver,softAssert).clickingProceedToCheckout();
+        new AddressDetailPage(driver,softAssert).waitPageToLoad();
         //recuerda que tienes que eliminar la cuenta weslinmartinez37 antes de ejecutar
     }
 
@@ -178,14 +184,14 @@ public class CommonFlows {
         List<ContactUsModel> contactUsModels =  ExcelReader.readListContactUsExcel();
         goToDetailAddress();
 
-        new AddressDetailPage().fillingCommentAndPlacingOrder(contactUsModels.getFirst().getYourMessageHere());
-        new PaymentPage().waitPageToLoad();
+        new AddressDetailPage(driver,softAssert).fillingCommentAndPlacingOrder(contactUsModels.getFirst().getYourMessageHere());
+        new PaymentPage(driver,softAssert).waitPageToLoad();
     }
     public void goToPaymentPage2(){
         List<ContactUsModel> contactUsModels =  ExcelReader.readListContactUsExcel();
 
-        new AddressDetailPage().fillingCommentAndPlacingOrder(contactUsModels.getFirst().getYourMessageHere());
-        new PaymentPage().waitPageToLoad();
+        new AddressDetailPage(driver,softAssert).fillingCommentAndPlacingOrder(contactUsModels.getFirst().getYourMessageHere());
+        new PaymentPage(driver,softAssert).waitPageToLoad();
     }
 
     public void goToOrderPlaced(){
@@ -193,69 +199,69 @@ public class CommonFlows {
 
         goToPaymentPage();
 
-        new PaymentPage().FillPlaceOrder(
+        new PaymentPage(driver,softAssert).FillPlaceOrder(
                 paymentModels.getFirst().getName(),
                 paymentModels.getFirst().getCardNumber(),
                 paymentModels.getFirst().getCvc(),
                 paymentModels.getFirst().getExpMonth(),
                 paymentModels.getFirst().getExpYear());
 
-        new OrderPlacedPage().waitPageToLoad();
+        new OrderPlacedPage(driver, softAssert).waitPageToLoad();
     }
 
     public void goToOrderPlaced2(){
         List<PaymentModel> paymentModels =  ExcelReader.readListPaymentExcel();
 
-        new PaymentPage().FillPlaceOrder(
+        new PaymentPage(driver,softAssert).FillPlaceOrder(
                 paymentModels.getFirst().getName(),
                 paymentModels.getFirst().getCardNumber(),
                 paymentModels.getFirst().getCvc(),
                 paymentModels.getFirst().getExpMonth(),
                 paymentModels.getFirst().getExpYear());
 
-        new OrderPlacedPage().waitPageToLoad();
+        new OrderPlacedPage(driver, softAssert).waitPageToLoad();
     }
 
     public void registerBeforeCheckout(){
         goToAccountCreated();
-        new AccountCreated().clickingOnContinueButton();
-        new HomePage().waitPageToLoad();
-        new HomePage().verifyingLoggedInAs();
-        new HomePage().clickingProducts();
-        new ProductsPage().waitPageToLoad();
-        new ProductsPage().adding2ProductsToShoppingCart();
+        new AccountCreated(driver,softAssert).clickingOnContinueButton();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).verifyingLoggedInAs();
+        new HomePage(driver,softAssert).clickingProducts();
+        new ProductsPage(driver,softAssert).waitPageToLoad();
+        new ProductsPage(driver,softAssert).adding2ProductsToShoppingCart();
         goToPaymentPage2();
         goToOrderPlaced2();
-        new OrderPlacedPage().confirmPaymentAndDeleteAccount();
-        new HomePage().waitPageToLoad();
-        new HomePage().clickDeleteAccount();
-        new AccountCreated().waitPageToLoad();
-        new AccountDelete().clickContinueButton();
-        new HomePage().waitPageToLoad();
+        new OrderPlacedPage(driver, softAssert).confirmPaymentAndDeleteAccount();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).clickDeleteAccount();
+        new AccountCreated(driver,softAssert).waitPageToLoad();
+        new AccountDelete(driver,softAssert).clickContinueButton();
+        new HomePage(driver,softAssert).waitPageToLoad();
     }
 
     public void loginBeforeCheckout(){
-        new HomePage().clickSignUpLogin();
-        new SignUpLoginPage().waitPageToLoad();
+        new HomePage(driver,softAssert).clickSignUpLogin();
+        new SignUpLoginPage(driver,softAssert).waitPageToLoad();
 
         List<AccountInfoModel> accountInfoModels =  ExcelReader.readListAccountInfoExcel();
         List<SignUpLoginModel> signUpLoginModels =  ExcelReader.readListSignUpLoginExcel();
 
-        new SignUpLoginPage().fillLoginToYourAccount(
+        new SignUpLoginPage(driver,softAssert).fillLoginToYourAccount(
                 signUpLoginModels.getFirst().getEmail(), accountInfoModels.getFirst().getPassword());
-        new HomePage().waitPageToLoad();
+        new HomePage(driver,softAssert).waitPageToLoad();
 
-        new HomePage().clickingProducts();
-        new ProductsPage().waitPageToLoad();
-        new ProductsPage().adding2ProductsToShoppingCart();
+        new HomePage(driver,softAssert).clickingProducts();
+        new ProductsPage(driver,softAssert).waitPageToLoad();
+        new ProductsPage(driver,softAssert).adding2ProductsToShoppingCart();
         goToPaymentPage2();
         goToOrderPlaced2();
-        new OrderPlacedPage().confirmPaymentAndDeleteAccount();
-        new HomePage().waitPageToLoad();
-        new HomePage().clickDeleteAccount();
-        new AccountCreated().waitPageToLoad();
-        new AccountDelete().clickContinueButton();
-        new HomePage().waitPageToLoad();
+        new OrderPlacedPage(driver, softAssert).confirmPaymentAndDeleteAccount();
+        new HomePage(driver,softAssert).waitPageToLoad();
+        new HomePage(driver,softAssert).clickDeleteAccount();
+        new AccountCreated(driver,softAssert).waitPageToLoad();
+        new AccountDelete(driver,softAssert).clickContinueButton();
+        new HomePage(driver,softAssert).waitPageToLoad();
 
     }
 

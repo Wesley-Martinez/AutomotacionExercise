@@ -1,9 +1,17 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 public class OrderPlacedPage extends BasePage {
+
+    public OrderPlacedPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By orderPlacedText = By.xpath("//b[text()='Order Placed!']");
     private final By continueButton = By.xpath("//a[text()='Continue']");
 

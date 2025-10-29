@@ -2,9 +2,17 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 public class SignUpLoginPage extends BasePage {
+
+    public SignUpLoginPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By nameInput = By.xpath("//input[@data-qa='signup-name']");
     private final By emailInput = By.xpath("//input[@data-qa='signup-email']");
     private final By signUpButton = By.xpath("//button[@data-qa='signup-button']");

@@ -3,24 +3,38 @@ package runner;
 import data.ExcelReader;
 import modelos.SignUpLoginModel;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.AccountCreated;
 import pages.AccountDelete;
 import pages.HomePage;
 import utilities.BaseTest;
 import utilities.CommonFlows;
+import utilities.WebDriverFactory;
+import utilities.WebdriverProvider;
 
 import java.util.List;
 
 public class AccountDeleteTests extends BaseTest {
-    private final AccountDelete accountDelete = new AccountDelete();
+    WebDriver driver = new WebdriverProvider().get();
+    SoftAssert softAssert = new SoftAssert();
+    private final AccountDelete accountDelete = new AccountDelete(driver,softAssert);
     private final CommonFlows commonFlows = new CommonFlows();
-    private final HomePage homePage = new HomePage();
+    private final HomePage homePage = new HomePage(driver,softAssert);
 
     @BeforeMethod
     public void setUp() {
+        // Crear/inicializar driver a través de la fábrica
+        driver = WebDriverFactory.getDriver();
         commonFlows.goToDeleteAccount();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        WebDriverFactory.removeDriver();
     }
 
     @Test

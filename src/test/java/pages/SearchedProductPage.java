@@ -5,15 +5,23 @@ import modelos.AccountInfoModel;
 import modelos.SearchedProductModel;
 import modelos.SignUpLoginModel;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 import java.time.Duration;
 import java.util.List;
 
 public class SearchedProductPage extends BasePage {
+
+    public SearchedProductPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By searchedProductLabel = By.xpath("//h2[text()='Searched Products']");
     private final By categoryLabel = By.xpath("//h2[text()='Category']");
     private final By addToCartButton =

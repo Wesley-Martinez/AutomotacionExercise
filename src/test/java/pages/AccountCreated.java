@@ -1,9 +1,15 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 public class AccountCreated extends BasePage {
+    public AccountCreated(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
     private final By continueButton = By.cssSelector("a[data-qa='continue-button']");
 
     @Override

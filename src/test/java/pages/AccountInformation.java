@@ -1,10 +1,18 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 public class AccountInformation extends BasePage {
+
+    public AccountInformation(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By accountInfText = By.xpath("//b[text()='Enter Account Information']");
     private final By mrRadio = By.id("id_gender1");
     private final By nameInput = By.id("name");

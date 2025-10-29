@@ -2,15 +2,23 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 import java.time.Duration;
 
 public class ProductsPage extends BasePage {
+
+    public ProductsPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By allProductsTitle = By.xpath("//h2[text()='All Products']");
     private final By productsList = By.className("features_items");
     private final By viewFirstProductLink = By.xpath("//a[contains(text(),'View Product')][1]");
@@ -281,7 +289,7 @@ public class ProductsPage extends BasePage {
 
         wait.until(ExpectedConditions.elementToBeClickable(quantityDeleteButton2));
 
-        find(quantityDeleteButton2).click();
+        find(quantityDeleteButton1).click();
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartIsEmptyText));
 

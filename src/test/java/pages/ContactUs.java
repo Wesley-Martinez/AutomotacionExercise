@@ -2,15 +2,22 @@ package pages;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
 import utilities.Logs;
+import utilities.WebdriverProvider;
 
 import java.io.File;
 import java.time.Duration;
 
 public class ContactUs extends BasePage {
+    public ContactUs(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By getInTouchLabel = By.xpath("//h2[text()='Get In Touch']");
     private final By nameInput = By.cssSelector("input[data-qa='name']");
     private final By emailInput = By.cssSelector("input[data-qa='email']");
@@ -18,8 +25,8 @@ public class ContactUs extends BasePage {
     private final By yourMessageTexTarea = By.id("message");
     private final By selectFile= By.cssSelector("input[type='file']");
     private final By submitButton= By.cssSelector("input[data-qa='submit-button']");
-    private final By successfulLabel= By.cssSelector("status alert alert-success");
-    private final By homeButton= By.id("//span[text()=' Home']");
+    private final By successfulLabel= By.xpath("//div[@class='status alert alert-success']");
+    private final By homeButton= By.xpath("//span[text()=' Home']");
 
     @Override
     public void waitPageToLoad() {
@@ -49,34 +56,28 @@ public class ContactUs extends BasePage {
         Logs.info("Uploading the images");
         find(selectFile).sendKeys(file.getAbsolutePath());
 
+    }
+
+    public void clickingSubmitButton(){
         find(submitButton).click();
+    }
 
-//        String contactUsWindow = getDriver().getWindowHandle();
-//
-//        getDriver().switchTo().alert().accept();
-//
-//        getDriver().switchTo().window(contactUsWindow);
-//
-//        final var wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
-//
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(successfulLabel));
-//
-//        softAssert.assertTrue(find(successfulLabel).isDisplayed());
-//        softAssert.assertAll();
-
+    public void verifyingSuccessFullText(){
         final var wait = new WebDriverWait(getDriver(), Duration.ofSeconds(3));
 
         final var alert = (Alert) wait.until(ExpectedConditions.alertIsPresent());
 
         alert.accept();
 
-        wait.until(ExpectedConditions.elementToBeClickable(homeButton));
+        getDriver().switchTo().defaultContent();
+
+        find(homeButton);
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(homeButton));
 
         softAssert.assertTrue(find(successfulLabel).isDisplayed());
         softAssert.assertEquals(find(successfulLabel).getText(), "Success! Your details have been submitted successfully.");
-        //softAssert.assertTrue(find(homeButton).isDisplayed());
+        softAssert.assertTrue(find(homeButton).isDisplayed());
         softAssert.assertAll();
-
-        //find(homeButton).click();
     }
 }

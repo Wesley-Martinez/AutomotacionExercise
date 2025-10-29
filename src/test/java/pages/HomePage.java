@@ -2,15 +2,21 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 import java.time.Duration;
 
 public class HomePage extends BasePage {
+    public HomePage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By homelink = By.xpath("//a[text()=' Home']");
     private final By signUpLoginLink = By.xpath("//a[text()=' Signup / Login']");
     private final By logOutLink = By.xpath("//a[text()=' Logout']");
@@ -34,9 +40,6 @@ public class HomePage extends BasePage {
     private final By menCategory = By.xpath("//a[normalize-space()='Men']");
     private final By tShirtCategoryLink = By.xpath("//a[normalize-space()='Tshirts']");
     private final By menTshirtProductsTitle = By.xpath("//h2[text()='Men - Tshirts Products']");
-
-
-
 
     @Override
     public void waitPageToLoad() {

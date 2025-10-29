@@ -2,10 +2,18 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
+import utilities.WebdriverProvider;
 
 public class ShoppingCartPage extends BasePage {
+
+    public ShoppingCartPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By subscriptionText = By.xpath("//h2[text()='Subscription']");
     private final By emailInput = By.id("susbscribe_email");
     private final By subscribeButton = By.id("subscribe");

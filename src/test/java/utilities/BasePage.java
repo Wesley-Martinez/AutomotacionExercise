@@ -10,24 +10,45 @@ import org.testng.asserts.SoftAssert;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * Base class for all page objects.
+ */
 public abstract class BasePage{
-    private final static int defaultTime = 5;
+    
     protected final SoftAssert softAssert;
     private final int timeOut;
+    public static WebDriver driver;
 
-    public BasePage(int timeOut) {
-        softAssert = new SoftAssert();
+    /**
+     * Injecting Webdriver, softAssert, and Timeout
+     */
+    public BasePage(WebDriver driver, SoftAssert softAssert, int timeOut) {
+        this.driver = driver;
+        this.softAssert = softAssert;
         this.timeOut = timeOut;
     }
 
-    public BasePage() {
-        this(defaultTime); //llamo el constructor de arriba con el default timeOut
+    /**
+     * Constructor with configurable timeout and WebDriver.
+     */
+    public BasePage(WebDriver driver, SoftAssert softAssert) {
+        this(driver, softAssert,
+                Integer.parseInt(ConfigReader.getProperty("basepage.default.timeout.seconds")));
     }
 
+    /**
+     * Getting Webdriver when it is not null
+     */
     protected WebDriver getDriver(){
-        return new WebdriverProvider().get();
+        if(driver == null ){
+            driver = new WebdriverProvider().get();
+        }
+        return driver;
     }
 
+    /**
+     * Waits for the visibility of the element located by the specified locator.
+     */
     protected void waitPages(By locator, String pageName){
         final var wait = new WebDriverWait(getDriver(), Duration.ofSeconds(this.timeOut));
 
@@ -35,15 +56,33 @@ public abstract class BasePage{
 
     }
 
+    /**
+     * Finding a unique element
+     */
     protected WebElement find(By locator){
         return getDriver().findElement(locator);
     }
+
+    /**
+     * Finding a list of elements
+     */
 
     protected List<WebElement> findAll(By locator){
         return getDriver().findElements(locator);
     }
 
+    /**
+     * Waits until this page is fully loaded and ready for interactions.
+     * The implementation should include any waits or checks required
+     * to verify that the page elements are visible and the page is usable.
+     */
     public abstract void waitPageToLoad(); //espera que cargue la pagina
+
+    /**
+     * Verifies that the UI of this page meets expected criteria:
+     * all key elements are displayed, enabled, etc.
+     * The sub-class should perform soft assertions (with softAssert) and call assertAll().
+     */
     public abstract void verifyPage(); //verificar la UI de las paginas
 
 }
