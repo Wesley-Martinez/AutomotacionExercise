@@ -2,20 +2,36 @@ package runner;
 
 import data.ExcelReader;
 import modelos.AccountInfoModel;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.AccountInformation;
 import pages.SignUpLoginPage;
 import utilities.BaseTest;
+import utilities.WebDriverFactory;
+import utilities.WebdriverProvider;
 
 import java.util.List;
 
 public class AccountInformationTests extends BaseTest {
-    private final AccountInformation accountInformation = new AccountInformation();
+    WebDriver driver = new WebdriverProvider().get();
+    SoftAssert softAssert = new SoftAssert();
+    private final AccountInformation accountInformation = new AccountInformation(driver,softAssert);
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
+        // Initialize driver through factory
+        driver = WebDriverFactory.getDriver();
+        // Navigate to the page
         commonFlows.goToAccountingInformation();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        //removing the driver
+        WebDriverFactory.removeDriver();
     }
 
     @Test

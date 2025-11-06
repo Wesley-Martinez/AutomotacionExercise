@@ -1,9 +1,16 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
 
 public class TestCasesPage extends BasePage {
+
+    public TestCasesPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By testCasesLabel = By.xpath("//b[text()='Test Cases']");
     @Override
     public void waitPageToLoad() {

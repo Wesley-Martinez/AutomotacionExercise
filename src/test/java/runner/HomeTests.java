@@ -3,18 +3,35 @@ package runner;
 import data.ExcelReader;
 import io.qameta.allure.Step;
 import modelos.SignUpLoginModel;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import utilities.BaseTest;
+import utilities.WebDriverFactory;
+import utilities.WebdriverProvider;
 
 import java.util.List;
 
 public class HomeTests extends BaseTest {
-    private final HomePage homePage = new HomePage();
+    WebDriver driver = new WebdriverProvider().get();
+    SoftAssert softAssert = new SoftAssert();
+    private final HomePage homePage = new HomePage(driver,softAssert);
+
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
+        // Initialize driver through factory
+        driver = WebDriverFactory.getDriver();
+        // Navigate to the page
         commonFlows.goToHomePage();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        //removing the driver
+        WebDriverFactory.removeDriver();
     }
 
     @Test

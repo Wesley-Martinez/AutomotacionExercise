@@ -7,9 +7,9 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
-import org.testng.asserts.SoftAssert;
 
 public class DriverManager {
+
     private final boolean runServer = System.getenv("JOB_NAME") != null;
 
     public void buildDriver(){
@@ -24,8 +24,6 @@ public class DriverManager {
         //softAssert = new SoftAssert();
 
         final var headlessMode = System.getProperty("headless") !=null;
-
-
 
         var browserProperty = System.getProperty("browser");
 

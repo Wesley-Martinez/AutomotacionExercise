@@ -1,9 +1,16 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
 
 public class PaymentPage extends BasePage {
+
+    public PaymentPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By nameOnCartInput = By.cssSelector("input[data-qa='name-on-card']");
     private final By cartNumberInput = By.cssSelector("input[data-qa='card-number']");
     private final By cvcInput = By.cssSelector("input[data-qa='cvc']");

@@ -1,9 +1,17 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
 
+
 public class DetailProductsPage extends BasePage {
+
+    public DetailProductsPage(WebDriver driver, SoftAssert softAssert) {
+        super(driver, softAssert);
+    }
+
     private final By productNameLabel = By.xpath("//h2[text()='Blue Top']");
     private final By categoryLabel = By.xpath("//h2[text()='Category']");
     private final By price = By.xpath("//span[text()='Rs. 500']");

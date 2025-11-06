@@ -2,7 +2,6 @@ package utilities;
 
 import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
-import org.aspectj.util.FileUtil;
 import org.jsoup.Jsoup;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
