@@ -2,7 +2,6 @@ package pages;
 
 import data.ExcelReader;
 import modelos.AccountInfoModel;
-import modelos.SearchedProductModel;
 import modelos.SignUpLoginModel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
-import utilities.WebdriverProvider;
 
 import java.time.Duration;
 import java.util.List;

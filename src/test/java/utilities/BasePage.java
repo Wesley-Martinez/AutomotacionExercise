@@ -13,11 +13,12 @@ import java.util.List;
 /**
  * Base class for all page objects.
  */
-public abstract class BasePage{
-    
+public abstract class BasePage {
+
     protected final SoftAssert softAssert;
     private final int timeOut;
     public static WebDriver driver;
+    private final String baseUrl;
 
     /**
      * Injecting Webdriver, softAssert, and Timeout
@@ -26,6 +27,7 @@ public abstract class BasePage{
         this.driver = driver;
         this.softAssert = softAssert;
         this.timeOut = timeOut;
+        this.baseUrl = ConfigReader.getProperty("base.url"); // ✅ Added base URL
     }
 
     /**
@@ -39,8 +41,8 @@ public abstract class BasePage{
     /**
      * Getting Webdriver when it is not null
      */
-    protected WebDriver getDriver(){
-        if(driver == null ){
+    protected WebDriver getDriver() {
+        if (driver == null) {
             driver = new WebdriverProvider().get();
         }
         return driver;
@@ -49,26 +51,31 @@ public abstract class BasePage{
     /**
      * Waits for the visibility of the element located by the specified locator.
      */
-    protected void waitPages(By locator, String pageName){
+    protected void waitPages(By locator, String pageName) {
         final var wait = new WebDriverWait(getDriver(), Duration.ofSeconds(this.timeOut));
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-
     }
 
     /**
      * Finding a unique element
      */
-    protected WebElement find(By locator){
+    protected WebElement find(By locator) {
         return getDriver().findElement(locator);
     }
 
     /**
      * Finding a list of elements
      */
-
-    protected List<WebElement> findAll(By locator){
+    protected List<WebElement> findAll(By locator) {
         return getDriver().findElements(locator);
+    }
+
+    /**
+     * Navigates to the base URL defined in config.properties.
+     */
+    public void navigateToBaseUrl() {
+        //String baseUrl = ConfigReader.getProperty("base.url");
+        getDriver().get(baseUrl);
     }
 
     /**
@@ -76,13 +83,12 @@ public abstract class BasePage{
      * The implementation should include any waits or checks required
      * to verify that the page elements are visible and the page is usable.
      */
-    public abstract void waitPageToLoad(); //espera que cargue la pagina
+    public abstract void waitPageToLoad();
 
     /**
      * Verifies that the UI of this page meets expected criteria:
      * all key elements are displayed, enabled, etc.
      * The sub-class should perform soft assertions (with softAssert) and call assertAll().
      */
-    public abstract void verifyPage(); //verificar la UI de las paginas
-
+    public abstract void verifyPage();
 }

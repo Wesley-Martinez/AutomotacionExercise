@@ -1,22 +1,17 @@
 package utilities;
 
-//import data.DataGiver;
 import data.ExcelReader;
 import modelos.*;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 import pages.*;
 
 import java.util.List;
 
-import static utilities.BasePage.driver;
-
-//import pages.*;
-
 public class CommonFlows {
     WebDriver driver = new WebdriverProvider().get();
     SoftAssert softAssert = new SoftAssert();
+
 
     private WebDriver getDriver(){
         return new WebdriverProvider().get();
@@ -24,7 +19,9 @@ public class CommonFlows {
 
     public void goToHomePage(){
         Logs.info("Navigating to the url");
-        getDriver().get("https://automationexercise.com/");
+
+        HomePage homePage = new HomePage(driver, softAssert);
+        homePage.navigateToBaseUrl();
 
         new HomePage(driver,softAssert).waitPageToLoad(); //wait for the page to load
     }

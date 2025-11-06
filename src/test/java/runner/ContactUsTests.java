@@ -2,14 +2,12 @@ package runner;
 
 import data.ExcelReader;
 import modelos.ContactUsModel;
-import modelos.SignUpLoginModel;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.ContactUs;
-import pages.SignUpLoginPage;
 import utilities.BaseTest;
 import utilities.CommonFlows;
 import utilities.WebDriverFactory;
@@ -25,14 +23,15 @@ public class ContactUsTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        // Crear/inicializar driver a través de la fábrica
+        // Initialize driver through factory
         driver = WebDriverFactory.getDriver();
-        // Navegar a página
+        // Navigate to the page
         commonFlows.goToContactUsPage();
     }
 
     @AfterMethod
     public void tearDown() {
+        //removing the driver
         WebDriverFactory.removeDriver();
     }
 

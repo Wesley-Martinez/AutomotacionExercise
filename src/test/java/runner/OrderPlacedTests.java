@@ -23,14 +23,15 @@ public class OrderPlacedTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        // Crear/inicializar driver a través de la fábrica
+        // Initialize driver through factory
         driver = WebDriverFactory.getDriver();
-        // Navegar a página
+        // Navigate to the page
         commonFlows.goToOrderPlaced();
     }
 
     @AfterMethod
     public void tearDown() {
+        //removing the driver
         WebDriverFactory.removeDriver();
     }
 

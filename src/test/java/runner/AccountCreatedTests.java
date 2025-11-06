@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.AccountCreated;
-import pages.AccountInformation;
 import pages.HomePage;
 import utilities.BaseTest;
 import utilities.WebDriverFactory;
@@ -20,13 +19,14 @@ public class AccountCreatedTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        // Crear/inicializar driver a través de la fábrica
+        // Initialize driver through factory
         driver = WebDriverFactory.getDriver();
         commonFlows.goToAccountCreated();
     }
 
     @AfterMethod
     public void tearDown() {
+        //removing the driver
         WebDriverFactory.removeDriver();
     }
 

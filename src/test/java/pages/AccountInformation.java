@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
-import utilities.WebdriverProvider;
 
 public class AccountInformation extends BasePage {
 

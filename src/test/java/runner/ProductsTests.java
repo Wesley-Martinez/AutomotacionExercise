@@ -20,14 +20,15 @@ public class ProductsTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        // Crear/inicializar driver a través de la fábrica
+        // Initialize driver through factory
         driver = WebDriverFactory.getDriver();
-        // Navegar a página
+        // Navigate to the page
         commonFlows.goToProductsPage();
     }
 
     @AfterMethod
     public void tearDown() {
+        //removing the driver
         WebDriverFactory.removeDriver();
     }
 

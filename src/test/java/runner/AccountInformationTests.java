@@ -22,13 +22,15 @@ public class AccountInformationTests extends BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        // Crear/inicializar driver a través de la fábrica
+        // Initialize driver through factory
         driver = WebDriverFactory.getDriver();
+        // Navigate to the page
         commonFlows.goToAccountingInformation();
     }
 
     @AfterMethod
     public void tearDown() {
+        //removing the driver
         WebDriverFactory.removeDriver();
     }
 

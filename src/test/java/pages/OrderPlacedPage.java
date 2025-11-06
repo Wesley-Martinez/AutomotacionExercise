@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
-import utilities.WebdriverProvider;
 
 public class OrderPlacedPage extends BasePage {
 

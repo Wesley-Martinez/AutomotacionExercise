@@ -1,15 +1,11 @@
 package pages;
 
-import data.ExcelReader;
-import modelos.AccountInfoModel;
-import modelos.ContactUsModel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.asserts.SoftAssert;
 import utilities.BasePage;
 import utilities.WebdriverProvider;
 
-import java.util.List;
 
 public class AddressDetailPage extends BasePage {
     WebDriver driver = new WebdriverProvider().get();
